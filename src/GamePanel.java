@@ -43,10 +43,11 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g) {
 
         if (running) {
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
-                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
-            }
+            //grid lines
+//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+//                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
+//                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
+//            }
             //draw the apple
             g.setColor(Color.red);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
@@ -58,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 } else {
                     g.setColor(new Color(45, 180, 0));
+                    g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
@@ -107,7 +109,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void checkCollisions() {
         //check if head collides with its body
         for(int i = bodyParts; i>0; i--) {
-            if((x[0] == x[i]) && (y[0] == y[i])) { //this meand that head collided with body
+            if((x[0] == x[i]) && (y[0] == y[i])) { //this means that head collided with body
                 running = false;
 
             }
@@ -117,7 +119,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
         //check if head touches right border
-        if (x[0] > SCREEN_WIDTH) {
+        if (x[0] > SCREEN_WIDTH-UNIT_SIZE) {
             running = false;
         }
         //check if head touches top border
@@ -125,7 +127,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
         //check if head touches bottom border
-        if (y[0] > SCREEN_HEIGHT) {
+        if (y[0] > SCREEN_HEIGHT-UNIT_SIZE) {
             running = false;
         }
         if (!running) {
